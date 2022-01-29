@@ -32,6 +32,7 @@ stations = build_station_list()
 distance_List = stations_by_distance(stations)
 sorted_List = sorted_by_key(distance_List,1,True)
 
+
 #task 1C Adding geographical information into the class MonitoringStation
 def stations_within_radius(stations, centre = (0.0,0.0), r=0):
     temp_List_Distance = stations_by_distance(stations, centre)
@@ -41,3 +42,26 @@ def stations_within_radius(stations, centre = (0.0,0.0), r=0):
             Chosen_Name = temp_List_Distance[i][0]
             Closestation += [Chosen_Name]
     return Closestation
+
+#task 1D i) returning a list of river's name corresponding to the govin station
+def rivers_with_station(stations = stations):
+    temp_list = []
+    for i in range (0,len(stations)):
+        temp_list += [stations[i].river]
+    temp_set = set(temp_list)
+    return temp_set
+
+#task 1D ii) mapping the river names to a list of stations\
+def stations_by_river(stations = stations):
+    temp_dict = {}
+    river_list = [key for key in rivers_with_station()]
+    length = len(river_list)
+    for i in range (0, length):
+        temp_list_name = []
+        for j in range (0,len(stations)):
+            if stations[j].river == river_list[i]:
+                temp_list_name += [stations[j].name]
+            temp_dict[river_list[i]] = temp_list_name
+    return temp_dict
+
+
