@@ -45,6 +45,6 @@ print(len(sorted_list),"stations, First 10: ", First_ten)
 #secondtest
 from floodsystem.geo import stations_by_river
 dict_river = stations_by_river()
-print(sorted(dict_river['River Aire']))
-print(sorted(dict_river['River Cam']))
-print(sorted(dict_river['River Thames']))
+print("the stations monitoring River Aire", sorted(dict_river['River Aire']))
+print("the stations monitoring River Cam", sorted(dict_river['River Cam']))
+print("the stations monitoring River Thames", sorted(dict_river['River Thames']))
