@@ -64,4 +64,49 @@ def stations_by_river(stations = stations):
             temp_dict[river_list[i]] = temp_list_name
     return temp_dict
 
+def rivers_by_station_number(stations = stations, N=0):
+    temp_list = []
+    dict_data = stations_by_river()
+    list_river = [key for key in dict_data]
+    for i in range (0, len(list_river)):
+        temp_tuple = (list_river[i], len(dict_data[list_river[i]]))
+        temp_list += [temp_tuple]
+    sorted_list = sorted(temp_list, key = lambda tup: tup[1], reverse= True)
+
+    length = len(sorted_list)
+    j = length-1
+    while j >= N:
+        if sorted_list[N][1] == sorted_list[j][1]:
+            return sorted_list [:j]
+        j -= 1
+
+
+    #the codes below can generate lists with same number of stations
+    '''dict_sorted = {}
+    for j in range (1, sorted_list[0][1]+1):
+        times = 0
+        temp_list = []
+        for k in range (0, len(sorted_list)):
+            if sorted_list[k][1] == j:
+                temp_list += [sorted_list [k][0]]
+                times += 1
+        if times > 1:
+            dict_sorted[j] = temp_list
+        elif len(temp_list) > 0:
+            dict_sorted[j] = temp_list[0]
+    keys_data = [key for key in dict_sorted]
+    list_final = []
+    for k in range (0, len(dict_sorted)):
+        temp_tuple = (dict_sorted[keys_data[k]], keys_data[k])
+        list_final += [temp_tuple]
+
+    list_final.reverse()
+    return list_final [:N]'''
+
+
+
+
+
+
+
 

@@ -40,7 +40,7 @@ sorted_list = sorted(temp_list)             #sorted in alphabetical order
 First_ten = []
 for i in range (0,10):
     First_ten = sorted_list[0:10]
-print(len(sorted_list),"stations, First 10: ", First_ten)
+print(len(sorted_list),"rivers, First 10: ", First_ten)
 
 #secondtest
 from floodsystem.geo import stations_by_river
