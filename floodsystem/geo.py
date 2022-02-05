@@ -31,6 +31,7 @@ def stations_by_distance(stations, p = (52.2053,0.1218)):
 stations = build_station_list()
 distance_List = stations_by_distance(stations)
 sorted_List = sorted_by_key(distance_List,1,True)
+# i mean integrating the above 3 lines into stations_by_distance function.
 
 
 #task 1C Adding geographical information into the class MonitoringStation

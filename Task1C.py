@@ -4,8 +4,9 @@ from floodsystem.geo import stations_within_radius
 from floodsystem.stationdata import build_station_list
 
 #all distance quantities are in kilometres
-stations = build_station_list()
-Stations_Within_10 = stations_within_radius(stations,(52.2053,0.1218),10)
-print(Stations_Within_10)
+print(sorted(stations_within_radius(build_station_list(),(52.2053,0.1218),10)))
 
 '''what does it mean by a list of all stations(Type MonitoringStation)???'''
+# it says a list of all stations within radius r
+
+# simplified into one line (lollll), and modified to sort alphabetically.
