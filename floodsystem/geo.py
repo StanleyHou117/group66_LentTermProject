@@ -105,9 +105,23 @@ def rivers_by_station_number(stations = stations, N=0):
     return list_final [:N]'''
 
 
+# Task 1E: rivers by no. of stations
+from floodsystem.utils import sorted_by_key
+from operator import itemgetter
 
+def rivers_by_station_number(stations, N):
+    station_number_list = []
+    all_rivers_with_station = rivers_with_station()
+    all_stations_by_river = stations_by_river()
 
+    for entry in all_rivers_with_station:
+        station_number_list.append((entry, len(all_stations_by_river[entry])))
 
+    station_number_list = sorted(station_number_list,key=itemgetter(1),reverse=True) 
+    return_list = station_number_list[0:N]
 
-
-
+    A = N
+    while station_number_list[A-1][1] == station_number_list[A][1]:
+        return_list.append(station_number_list[A])
+        A += 1
+    return return_list
