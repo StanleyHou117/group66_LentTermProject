@@ -10,9 +10,7 @@ from floodsystem.utils import sorted_by_key  # noqa
 import math
 from floodsystem.stationdata import build_station_list
 #Task 1B
-def stations_by_distance(stations, p = (0,0)):
-    '''This function returns a list includes the distance between the monitoring stations
-        to point p and their corresponding names'''
+def stations_by_distance(stations, p = (52.2053,0.1218)):
     list_Tuple = []
     R = 6371
     for i in range (0,len(stations)):
@@ -28,36 +26,36 @@ def stations_by_distance(stations, p = (0,0)):
         temp_tuple = (stations[i].name, distance)
         list_Tuple += [temp_tuple]
         i += 1
-    return sorted_by_key(list_Tuple,1,True)
+    return list_Tuple
 
+stations = build_station_list()
+distance_List = stations_by_distance(stations)
+sorted_List = sorted_by_key(distance_List,1,True)
 # i mean integrating the above 3 lines into stations_by_distance function.
 
 
 #task 1C Adding geographical information into the class MonitoringStation
 def stations_within_radius(stations, centre = (0.0,0.0), r=0):
-    '''This function find out the stations' names within a distance r from the given centre'''
     temp_List_Distance = stations_by_distance(stations, centre)
     Closestation = []
     for i in range(0, len(stations)):
         if temp_List_Distance[i][1] <= r:
             Chosen_Name = temp_List_Distance[i][0]
             Closestation += [Chosen_Name]
-    return sorted(Closestation)
+    return Closestation
 
-#task 1D i)
-def rivers_with_station(stations):
-    '''This function returns a set of river's name corresponding to the given station '''
+#task 1D i) returning a list of river's name corresponding to the govin station
+def rivers_with_station(stations = stations):
     temp_list = []
     for i in range (0,len(stations)):
         temp_list += [stations[i].river]
     temp_set = set(temp_list)
     return temp_set
 
-#task 1D ii)
-def stations_by_river(stations):
-    '''This function maps the river names to lists of stations'''
+#task 1D ii) mapping the river names to a list of stations\
+def stations_by_river(stations = stations):
     temp_dict = {}
-    river_list = [key for key in rivers_with_station(stations)]
+    river_list = [key for key in rivers_with_station()]
     length = len(river_list)
     for i in range (0, length):
         temp_list_name = []
@@ -67,11 +65,11 @@ def stations_by_river(stations):
             temp_dict[river_list[i]] = temp_list_name
     return temp_dict
 
-#task 1E
-def rivers_by_station_number(stations, N=0):
-    '''This function returns a sorted list of the N rivers with the greatest number of monitoring stations.'''
+#Old 1E, replaced by faster 1E.
+"""
+def rivers_by_station_number(stations = stations, N=0):
     temp_list = []
-    dict_data = stations_by_river(stations)
+    dict_data = stations_by_river()
     list_river = [key for key in dict_data]
     for i in range (0, len(list_river)):
         temp_tuple = (list_river[i], len(dict_data[list_river[i]]))
@@ -82,30 +80,31 @@ def rivers_by_station_number(stations, N=0):
     j = length-1
     while j >= N:
         if sorted_list[N][1] == sorted_list[j][1]:
-            return sorted_list [:j]             #return the required list to end the function
+            return sorted_list [:j]
         j -= 1
+"""
 
     #the codes below can generate lists with same number of stations
-    # dict_sorted = {}
-    # for j in range (1, sorted_list[0][1]+1):
-    #     times = 0
-    #     temp_list = []
-    #     for k in range (0, len(sorted_list)):
-    #         if sorted_list[k][1] == j:
-    #             temp_list += [sorted_list [k][0]]
-    #             times += 1
-    #     if times > 1:
-    #         dict_sorted[j] = temp_list
-    #     elif len(temp_list) > 0:
-    #         dict_sorted[j] = temp_list[0]
-    # keys_data = [key for key in dict_sorted]
-    # list_final = []
-    # for k in range (0, len(dict_sorted)):
-    #     temp_tuple = (dict_sorted[keys_data[k]], keys_data[k])
-    #     list_final += [temp_tuple]
-    #
-    # list_final.reverse()
-    # return list_final [:N]
+'''dict_sorted = {}
+    for j in range (1, sorted_list[0][1]+1):
+        times = 0
+        temp_list = []
+        for k in range (0, len(sorted_list)):
+            if sorted_list[k][1] == j:
+                temp_list += [sorted_list [k][0]]
+                times += 1
+        if times > 1:
+            dict_sorted[j] = temp_list
+        elif len(temp_list) > 0:
+            dict_sorted[j] = temp_list[0]
+    keys_data = [key for key in dict_sorted]
+    list_final = []
+    for k in range (0, len(dict_sorted)):
+        temp_tuple = (dict_sorted[keys_data[k]], keys_data[k])
+        list_final += [temp_tuple]
+
+    list_final.reverse()
+    return list_final [:N]'''
 
 
 # Task 1E: rivers by no. of stations
