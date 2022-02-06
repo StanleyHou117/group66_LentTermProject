@@ -60,5 +60,7 @@ def test_stations_by_number():
     assert stations_river == {"x3": ["station3"], "x2": ["station2"], "x1": ["station1"]}
 
 def test_rivers_by_station_number():
-    rivers_station_number = rivers_by_station_number(test_stations, 3)
-    assert rivers_station_number == [("x3", 1), ("x2", 1), ("x1", 1)]
+    temp_list = rivers_by_station_number(test_stations, N = 3)
+    assert sorted(temp_list, key = lambda tup:tup[0], reverse = True) == [("x3", 1), ("x2", 1), ("x1", 1)]
+
+

@@ -68,21 +68,47 @@ def stations_by_river(stations):
 #Old 1E, replaced by faster 1E.
 
 def rivers_by_station_number(stations , N=0):
+    '''this function returns the Nth rivers with the largest number of monitoring stations'''
     temp_list = []
     dict_data = stations_by_river(stations)
     list_river = [key for key in dict_data]
     for i in range (0, len(list_river)):
         temp_tuple = (list_river[i], len(dict_data[list_river[i]]))
         temp_list += [temp_tuple]
-    sorted_list = sorted(temp_list, key = lambda tup: tup[1], reverse= True)
+    sorted_list = sorted(temp_list, key = lambda tup: tup[1], reverse=True)
+    if len(sorted_list) == N: #to avoid the maximum index error if N == len(list)
+        return (sorted_list)
+    else:
+        m = N
+        while 0 == 0:
+            if sorted_list[m - 1][1] == sorted_list[m][1]:
+                m = m + 1
+            else:
+                break
+            if m >= len(sorted_list):
+                break
+        return sorted_list[:m]
 
-    length = len(sorted_list)
-    j = length-1
-    while j >= N:
-        if sorted_list[N][1] == sorted_list[j][1]:
-            return sorted_list [:j+1]
-        j -= 1
 
+# def rivers_by_station_number(stations, N):
+#         rivers_station_number = []
+#         stations_river = stations_by_river(stations)
+#         for r in stations_river:
+#             rivers_station_number.append((r, len(stations_river[r])))
+#         ans_0 = sorted_by_key(rivers_station_number, 1)
+#         i = 0
+#         m = N
+#         ans = []
+#         for j in range(len(ans_0)):
+#             ans.append(ans_0[-(j + 1)])
+#         while i < 1:
+#             if ans[m - 1][1] == ans[m][1]:
+#                 m = m + 1
+#             else:
+#                 break
+#             if m >= len(ans):
+#                 break
+#         return ans[:m]
 
     #the codes below can generate lists with same number of stations
 '''dict_sorted = {}
