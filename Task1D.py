@@ -52,7 +52,6 @@ def run2():
     '''second sub-task in Task 1D'''
     stations = build_station_list()
     dict_river = stations_by_river(stations)
-    print(dict_river)
     print("the stations monitoring River Aire", sorted(dict_river['River Aire']))
     print("the stations monitoring River Cam", sorted(dict_river['River Cam']))
     print("the stations monitoring River Thames", sorted(dict_river['River Thames']))

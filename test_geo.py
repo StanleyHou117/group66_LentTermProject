@@ -1,42 +1,64 @@
 '''Unit test for geo module'''
-'''Due to the rapidly varying database, the tests below mainly focus on the types of returned elements and some
-    typical contents, which are not likely to change in a short term, such as the data within Cambridgeshire. However
-    there will still be a possibility that the test cannot undergo successfully because of the change in database.'''
 from floodsystem.geo import stations_by_distance
 from floodsystem.geo import stations_within_radius
-from floodsystem.stationdata import build_station_list
 from floodsystem.geo import rivers_with_station
 from floodsystem.geo import stations_by_river
 from floodsystem.geo import rivers_by_station_number
+from floodsystem.station import MonitoringStation
+
+# in case that the real data are always changing, we tend to use a set of static data we create as below
+s_id1 = "test_s_id1"
+m_id1 = "test_m_id1"
+label1 = "station1"
+coord1 = (0.0, 1.0)
+trange1 = (3.4, 1.2)
+river1 = "x1"
+town1 = "a1"
+
+s_id2 = "test_s_id2"
+m_id2 = "test_m_id2"
+label2 = "station2"
+coord2 = (0.0, 0.0)
+trange2 = (0.4, 1.2)
+river2 = "x2"
+town2 = "a2"
+
+s_id3 = "test_s_id3"
+m_id3 = "test_m_id3"
+label3 = "station3"
+coord3 = (2.0, 0.0)
+trange3 = (10, 2.4)
+river3 = "x3"
+town3 = "a3"
+
+a = MonitoringStation(s_id1, m_id1, label1, coord1, trange1, river1, town1)
+b = MonitoringStation(s_id2, m_id2, label2, coord2, trange2, river2, town2)
+c = MonitoringStation(s_id3, m_id3, label3, coord3, trange3, river3, town3)
+test_stations = [a, b, c]
 
 def test_stations_by_distance():
-    stations = build_station_list()
+    stations = test_stations
     result = stations_by_distance(stations)
     assert type(result) == list
     assert type(result[0]) == tuple
+    assert result == [('station1', 5805.544860297416), ('station2', 5804.975668111422), ('station3', 5582.586125587015)]
 
 def test_stations_within_radius():
-    stations = build_station_list()
-    result = stations_within_radius(stations, (52.2053, 0.1218), 10)
+    stations = test_stations
+    result = stations_within_radius(stations, (0.0,0.0), 0.1)
     assert type(result) == list
-    assert result[0] == 'Bin Brook'
+    assert result[0] == 'station2'
 
 def test_rivers_with_stations():
-    stations = build_station_list()
+    stations = test_stations
     result = rivers_with_station(stations)
     assert type(result) == set
-    list_result = [key for key in result]
-    assert sorted(list_result)[0] == 'Addlestone Bourne'
+    assert result == {'x2', 'x3', 'x1'}
 
 def test_stations_by_number():
-    stations  = build_station_list()
-    result = stations_by_river(stations)
-    assert type(result) == dict
-    assert type(result['Baguley Brook']) == list
-    assert result['Baguley Brook']== ['Northern Moor']
+    stations_river = stations_by_river(test_stations)
+    assert stations_river == {"x3": ["station3"], "x2": ["station2"], "x1": ["station1"]}
 
 def test_rivers_by_station_number():
-    stations = build_station_list()
-    result = rivers_by_station_number(stations, N = 1)
-    assert type(result) == list
-    assert type(result[0]) == tuple
+    rivers_station_number = rivers_by_station_number(test_stations, 3)
+    assert rivers_station_number == [("x3", 1), ("x2", 1), ("x1", 1)]

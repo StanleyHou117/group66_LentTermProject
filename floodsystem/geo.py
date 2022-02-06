@@ -45,7 +45,7 @@ def stations_within_radius(stations, centre = (0.0,0.0), r=0):
     return Closestation
 
 #task 1D i) returning a list of river's name corresponding to the govin station
-def rivers_with_station(stations = stations):
+def rivers_with_station(stations):
     temp_list = []
     for i in range (0,len(stations)):
         temp_list += [stations[i].river]
@@ -53,9 +53,9 @@ def rivers_with_station(stations = stations):
     return temp_set
 
 #task 1D ii) mapping the river names to a list of stations\
-def stations_by_river(stations = stations):
+def stations_by_river(stations):
     temp_dict = {}
-    river_list = [key for key in rivers_with_station()]
+    river_list = [key for key in rivers_with_station(stations)]
     length = len(river_list)
     for i in range (0, length):
         temp_list_name = []
@@ -66,10 +66,10 @@ def stations_by_river(stations = stations):
     return temp_dict
 
 #Old 1E, replaced by faster 1E.
-"""
-def rivers_by_station_number(stations = stations, N=0):
+
+def rivers_by_station_number(stations , N=0):
     temp_list = []
-    dict_data = stations_by_river()
+    dict_data = stations_by_river(stations)
     list_river = [key for key in dict_data]
     for i in range (0, len(list_river)):
         temp_tuple = (list_river[i], len(dict_data[list_river[i]]))
@@ -80,9 +80,9 @@ def rivers_by_station_number(stations = stations, N=0):
     j = length-1
     while j >= N:
         if sorted_list[N][1] == sorted_list[j][1]:
-            return sorted_list [:j]
+            return sorted_list [:j+1]
         j -= 1
-"""
+
 
     #the codes below can generate lists with same number of stations
 '''dict_sorted = {}
@@ -108,22 +108,22 @@ def rivers_by_station_number(stations = stations, N=0):
 
 
 # Task 1E: rivers by no. of stations
-from floodsystem.utils import sorted_by_key
-from operator import itemgetter
-
-def rivers_by_station_number(stations, N):
-    station_number_list = []
-    all_rivers_with_station = rivers_with_station()
-    all_stations_by_river = stations_by_river()
-
-    for entry in all_rivers_with_station:
-        station_number_list.append((entry, len(all_stations_by_river[entry])))
-
-    station_number_list = sorted(station_number_list,key=itemgetter(1),reverse=True) 
-    return_list = station_number_list[0:N]
-
-    A = N
-    while station_number_list[A-1][1] == station_number_list[A][1]:
-        return_list.append(station_number_list[A])
-        A += 1
-    return return_list
+# from floodsystem.utils import sorted_by_key
+# from operator import itemgetter
+#
+# def rivers_by_station_number(stations, N):
+#     station_number_list = []
+#     all_rivers_with_station = rivers_with_station(stations)
+#     all_stations_by_river = stations_by_river(stations)
+#
+#     for entry in all_rivers_with_station:
+#         station_number_list.append((entry, len(all_stations_by_river[entry])))
+#
+#     station_number_list = sorted(station_number_list,key=itemgetter(1),reverse=True)
+#     return_list = station_number_list[0:N]
+#
+#     A = N
+#     while station_number_list[A-1][1] == station_number_list[A][1]:
+#         return_list.append(station_number_list[A])
+#         A += 1
+#     return return_list
