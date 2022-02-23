@@ -7,7 +7,7 @@ def run():
     Threshold = 0.8
     flood_list = stations_level_over_threshold(stations,Threshold)
     for entry in flood_list:
-        print(entry[0],entry[1])
+        print(entry[0].name,entry[1])
 
 
 

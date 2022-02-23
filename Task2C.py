@@ -5,7 +5,7 @@ def run():
     stations = build_station_list()
     warning_stations = stations_highest_rel_level(stations,10)
     for entry in warning_stations:
-        print(entry)
+        print(entry[0].name,entry[1])
 
 
 
