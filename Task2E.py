@@ -12,6 +12,7 @@ def run():
     #print(data)
     for entry in data:
         dates, levels = fetch_measure_levels(entry[0].measure_id, dt=datetime.timedelta(days=dt))
+        print('The graph for ', entry[0].name, ' is printed')
         plot_water_levels(entry[0], dates, levels)
 
 
