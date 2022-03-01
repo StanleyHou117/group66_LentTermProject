@@ -7,6 +7,12 @@ def risktest(stations):
     towns_h = set()
     towns_m = set()
     towns_l = set()
+    #using set to avoid repetition and sequence.
+    #In this module, the warning could be more precise by evaluating the rate of change of the waterlevel.
+    #However, there is no evidence to show that the rate of rising would not change tomorrow.... and they are not independent variables.
+    #additionally, according to previous tasks, 2D-2F, the data gained from the stations were actually not precise.
+    #Some gaps and some missing data might influence this test dramatically if we evaluate the rate of change.
+    #therefore, a simple module to evaluate the current water level is introduced
     for station in stations:
         rel_level = station.relative_water_level()
         if rel_level is None:
